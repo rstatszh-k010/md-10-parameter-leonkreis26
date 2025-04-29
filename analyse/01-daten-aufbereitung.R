@@ -27,23 +27,23 @@ leerwohungen <- read_delim("https://www.web.statistik.zh.ch/ogd/data/KANTON_ZUER
 # Daten transformieren ----------------------------------------------------
 
 wohnungsbestand_klein <- wohnungsbestand |> 
-  # Beschreibung....
+  # 6 Spalten werden aus wohungsbestand genommen und neu in wohnungsbestand_klein gespeichert 
   select(bfs_nr, gebiet_name, indikator_name, indikator_id, 
          indikator_jahr, indikator_value)
 
 leerwohungen_klein <-  leerwohungen |> 
-  # Beschreibung....
+  # 6 Spalten werden aus leerwohnungen genommen und neu in leerwohungen_klein gespeichert 
   select(bfs_nr, gebiet_name, indikator_name, indikator_id,
          indikator_jahr, indikator_value)
 
 leerwohungen_wohnungsbestand <- wohnungsbestand_klein |> 
-  # Beschreibung....
+  # Tabellen untereinander zusammengefügt
   bind_rows(leerwohungen_klein) |> 
-  # Beschreibung....
+  # Filtert alles, das kleiner als 2024 ist. 
   filter(indikator_jahr < 2024) |> 
-  # Beschreibung....
+  # Filtert alle Nuller-Werte raus
   filter(bfs_nr != 0) |>
-  # Beschreibung....
+  # Alle Werte, die "bis" enthalten, rausnehmen
   filter(!str_detect(gebiet_name, "bis"))
 
 # Daten speichern ----------------------------------------------------------

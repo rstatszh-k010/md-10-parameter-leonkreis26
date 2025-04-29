@@ -62,7 +62,7 @@ rate <- daten_in_prozent |>
   filter(indikator_jahr == params$jahr) |> 
   filter(indikator_id == 140) |> 
   pull(rate)
-``` 
+```
 
 Der Leerwohnungsbestand in `r gemeinde_name` im Jahr `r params$jahr` beträgt `r leerwohungen_anzahl`. Pro `r round(rate, 0)` Wohnungen, ist eine Wohnung leer.
 
